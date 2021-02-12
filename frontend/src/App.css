@@ -1,0 +1,10 @@
+.reg-container {
+  padding-top: 120px;
+  align-content: center;
+}
+
+.reg-card {
+  margin-top: auto;
+  margin-bottom: auto;
+  max-width: 450px;
+}

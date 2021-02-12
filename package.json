@@ -1,0 +1,20 @@
+{
+  "name": "registration-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon backend/index",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "author": "William Xu",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^1.19.2"
+  }
+}
