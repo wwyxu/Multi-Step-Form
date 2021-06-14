@@ -1,22 +1,18 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const validation = require("../middleware/validation");
-const checkUserExists = require("../middleware/checkUserExists");
+const validation = require("../utils/validation");
+const checkUserExists = require("../utils/checkUserExists");
 
-// User Model
-const User = require("../models/userModel");
+const User = require("../models/user");
 
-// Check if Email exists in Database
 router.post("/verifyemail", validation, checkUserExists, async (req, res) => {
   return res.json(true);
 });
 
-// Register User
 router.post("/register", validation, checkUserExists, async (req, res) => {
   const { email, name, password1 } = req.body;
 
   try {
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const bcryptPassword = await bcrypt.hash(password1, salt);
 
@@ -33,7 +29,6 @@ router.post("/register", validation, checkUserExists, async (req, res) => {
   }
 });
 
-// Get all Users
 router.get("/", async (req, res) => {
   try {
     const users = await User.find({}, { password: 0 });

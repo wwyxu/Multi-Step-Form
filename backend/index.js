@@ -9,10 +9,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-// Routes
 const users = require("./routes/users");
 
-// Connect To Database
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.uri, {
@@ -30,7 +28,6 @@ const connectDB = async () => {
 
 connectDB();
 
-// Use Routes
 app.use("/users", users);
 
 app.listen(5000, () => {

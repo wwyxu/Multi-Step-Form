@@ -1,5 +1,5 @@
 import React from "react";
-import fetchPost from "../helpers/fetchPost";
+import fetch from "../../../../utils/fetch";
 import { toast } from "react-toastify";
 
 const step2 = ({
@@ -13,27 +13,16 @@ const step2 = ({
   loading,
   setLoad,
 }) => {
-  // Check if client form is valid
   const checkValidity = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-    } else {
-      checkPassword();
-    }
+    form.checkValidity() ? checkPassword() : e.stopPropagation();
   };
 
   const checkPassword = () => {
-    if (inputs.password1 !== inputs.password2) {
-      toast.error("Passwords must match");
-      return;
-    } else {
-      submitForm();
-    }
+    inputs.password1 !== inputs.password2 ? toast.error("Password must match") : submitForm();
   };
 
-  // Register User
   const submitForm = async () => {
     try {
       setLoad(true);
@@ -45,25 +34,24 @@ const step2 = ({
         password2: inputs.password2,
       };
 
-      const response = await fetchPost(
+      const response = await fetch(
         "http://localhost:5000/users/register",
         "",
         body
       );
 
-      // Proceed to next step if successful
-      if (response === true) {
-        clearForm();
-        nextStep();
-      } else {
-        toast.error(response);
-      }
+      response ? next() : toast.error(response);
     } catch (err) {
       console.error(err.message);
     } finally {
       setLoad(false);
     }
   };
+
+  const next = () => {
+    clearForm();
+    nextStep();
+  }
 
   return (
     <div className="container reg-container">

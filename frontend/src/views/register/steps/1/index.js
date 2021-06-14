@@ -1,5 +1,5 @@
 import React from "react";
-import fetchPost from "../helpers/fetchPost";
+import fetch from "../../../../utils/fetch";
 import { toast } from "react-toastify";
 
 const step1 = ({
@@ -11,37 +11,25 @@ const step1 = ({
   loading,
   setLoad,
 }) => {
-  // Check if client form is valid
   const checkValidity = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-    } else {
-      // Submit form if valid
-      submitForm();
-    }
+    form.checkValidity() ? submitForm() : e.stopPropagation();
   };
 
-  // Verify Email is not taken
   const submitForm = async () => {
     try {
       setLoad(true);
 
       const body = { email: inputs.email, name: inputs.name };
 
-      const response = await fetchPost(
+      const response = await fetch(
         "http://localhost:5000/users/verifyemail",
         "",
         body
       );
 
-      // Proceed to next step if successful
-      if (response === true) {
-        nextStep();
-      } else {
-        toast.error(response);
-      }
+      response ? nextStep() : toast.error(response);
     } catch (err) {
       console.error(err.message);
     } finally {

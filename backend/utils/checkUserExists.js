@@ -1,5 +1,5 @@
 // User Model
-const User = require("../models/userModel");
+const User = require("../models/user");
 
 module.exports = async function (req, res, next) {
   const { email } = req.body;

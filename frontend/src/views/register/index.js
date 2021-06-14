@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Step1 from "./step1";
-import Step2 from "./step2";
+import Step1 from "./steps/1";
+import Step2 from "./steps/2";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -9,29 +9,22 @@ const Register = () => {
     password1: "",
     password2: "",
   });
-
   const [loading, setLoading] = useState(false);
-
-  // Form Progress
   const [step, setStep] = useState(1);
   const [maxSteps] = useState(2);
 
-  // Go to next step
   const nextStep = () => {
     setStep(step + 1);
   };
 
-  // Go back to prev step
   const prevStep = () => {
     setStep(step - 1);
   };
 
-  // Reset Form Progress
   const resetStep = () => {
     setStep(1);
   };
 
-  // Clear Inputs
   const clearForm = () => {
     setInputs({ email: "", name: "", password1: "", password2: "" });
   };
