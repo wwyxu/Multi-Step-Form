@@ -1,17 +1,20 @@
 import { postFetch } from "../../utils/fetch";
 import Models from "src/models";
+import { baseUrl } from "src/consts";
+
+const type = "users";
 
 const API = {
     register: (body: Models.Form) => {
         return postFetch(
-            "http://localhost:5000/users/register",
+            `${baseUrl}/${type}/register`,
             "",
             body
         );
     },
     verify: (body: Models.Step1) => {
         return postFetch(
-            "http://localhost:5000/users/verifyemail",
+            `${baseUrl}/${type}/verifyemail`,
             "",
             body
         );
