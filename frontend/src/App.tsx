@@ -7,7 +7,7 @@ import Register from "./views/register";
 
 toast.configure();
 
-function App() {
+const App = () => {
   return (
       <BrowserRouter>
         <div className="container-fluid">
