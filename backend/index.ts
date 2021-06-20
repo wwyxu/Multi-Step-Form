@@ -3,8 +3,9 @@ import * as mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import * as cors from 'cors';
 
-const app = express();
 dotenv.config();
+
+const app = express();
 app.use(cors());
 app.use(express.json());
 
@@ -12,7 +13,7 @@ const users = require("./routes/users");
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect('mongodb+srv://William:Nob2231to@cluster0.lqe4g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+    const conn = await mongoose.connect(process.env.uri, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
