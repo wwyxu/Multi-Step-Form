@@ -3,7 +3,7 @@ import Step1 from "./steps/1";
 import Step2 from "./steps/2";
 
 const Register = () => {
-  const [inputs, setInputs] = useState({
+  const [inputs , setInputs] = useState({
     email: "",
     name: "",
     password1: "",
@@ -29,10 +29,6 @@ const Register = () => {
     setInputs({ email: "", name: "", password1: "", password2: "" });
   };
 
-  const setLoad = (boolean) => {
-    setLoading(boolean);
-  };
-
   const onChange = (input) => (e) =>
     setInputs({ ...inputs, [input]: e.target.value });
 
@@ -46,7 +42,7 @@ const Register = () => {
           onChange={onChange}
           nextStep={nextStep}
           loading={loading}
-          setLoad={setLoad}
+          setLoad={setLoading}
         />
       );
     case 2:
@@ -60,7 +56,7 @@ const Register = () => {
           prevStep={prevStep}
           clearForm={clearForm}
           loading={loading}
-          setLoad={setLoad}
+          setLoad={setLoading}
         />
       );
     case 3:

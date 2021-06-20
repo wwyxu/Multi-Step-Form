@@ -1,7 +1,7 @@
 // User Model
-const User = require("../models/user");
+import { User } from "../models/user";
 
-module.exports = async function (req, res, next) {
+const checkUserExists = async (req, res, next) => {
   const { email } = req.body;
 
   try {
@@ -18,3 +18,5 @@ module.exports = async function (req, res, next) {
 
   next();
 };
+
+export default checkUserExists;

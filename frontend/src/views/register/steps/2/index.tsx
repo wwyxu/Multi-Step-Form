@@ -1,6 +1,7 @@
 import React from "react";
-import fetch from "../../../../utils/fetch";
 import { toast } from "react-toastify";
+import Models from "src/models";
+import API from "src/services/api"
 
 const step2 = ({
   inputs,
@@ -12,7 +13,7 @@ const step2 = ({
   clearForm,
   loading,
   setLoad,
-}) => {
+}: {inputs: Models.Form, step: number, maxSteps: number, onChange: any, prevStep: any, nextStep: any, clearForm: any, loading: boolean, setLoad: any} ) => {
   const checkValidity = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -26,21 +27,8 @@ const step2 = ({
   const submitForm = async () => {
     try {
       setLoad(true);
-
-      const body = {
-        name: inputs.name,
-        email: inputs.email,
-        password1: inputs.password1,
-        password2: inputs.password2,
-      };
-
-      const response = await fetch(
-        "http://localhost:5000/users/register",
-        "",
-        body
-      );
-
-      response ? next() : toast.error(response);
+      const res = await API.register(inputs);
+      res.data === 'ok' ? next() : toast.error(res);
     } catch (err) {
       console.error(err.message);
     } finally {
@@ -63,7 +51,7 @@ const step2 = ({
               Step {step} of {maxSteps}
             </div>
             <div className="form-group">
-              <label for="password1">Password</label>
+              <label>Password</label>
               <input
                 type="password"
                 required
@@ -74,7 +62,7 @@ const step2 = ({
                 onChange={onChange("password1")}
                 className="form-control my-1"
               />
-              <label for="password2">Password</label>
+              <label>Password</label>
               <input
                 type="password"
                 required

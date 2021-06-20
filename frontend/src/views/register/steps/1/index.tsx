@@ -1,6 +1,7 @@
 import React from "react";
-import fetch from "../../../../utils/fetch";
 import { toast } from "react-toastify";
+import Models from "src/models";
+import API from "src/services/api"
 
 const step1 = ({
   inputs,
@@ -10,7 +11,7 @@ const step1 = ({
   nextStep,
   loading,
   setLoad,
-}) => {
+}: {inputs: Models.Form, step: number, maxSteps: number, onChange: any, nextStep: any, loading: boolean, setLoad: any}) => {
   const checkValidity = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -20,16 +21,9 @@ const step1 = ({
   const submitForm = async () => {
     try {
       setLoad(true);
-
-      const body = { email: inputs.email, name: inputs.name };
-
-      const response = await fetch(
-        "http://localhost:5000/users/verifyemail",
-        "",
-        body
-      );
-
-      response ? nextStep() : toast.error(response);
+      const body: Models.Step1 = { email: inputs.email, name: inputs.name };
+      const res = await API.verify(body);
+      res.data === 'ok' ? nextStep() : toast.error(res);
     } catch (err) {
       console.error(err.message);
     } finally {
@@ -47,7 +41,7 @@ const step1 = ({
               Step {step} of {maxSteps}
             </div>
             <div className="form-group">
-              <label for="name">Name</label>
+              <label >Name</label>
               <input
                 type="text"
                 required
@@ -58,7 +52,7 @@ const step1 = ({
                 onChange={onChange("name")}
                 className="form-control my-1"
               />
-              <label for="email" className="mt-1">
+              <label className="mt-1">
                 Email address
               </label>
               <input

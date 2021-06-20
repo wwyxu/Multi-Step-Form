@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +9,6 @@ toast.configure();
 
 function App() {
   return (
-    <Fragment>
       <BrowserRouter>
         <div className="container-fluid">
           <div className="row no-gutters">
@@ -23,7 +22,6 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
-    </Fragment>
   );
 }
 

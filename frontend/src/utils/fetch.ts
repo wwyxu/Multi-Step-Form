@@ -1,4 +1,4 @@
-function getFetch(url, params = {}, body) {
+const postFetch = (url, params = {}, body) => {
   const queryString = Object.entries(params)
     .map((param) => {
       return `${param[0]}=${param[1]}`;
@@ -13,4 +13,4 @@ function getFetch(url, params = {}, body) {
   }).then((res) => res.json());
 }
 
-export default getFetch;
+export { postFetch };

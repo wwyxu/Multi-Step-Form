@@ -1,12 +1,13 @@
-const router = require("express").Router();
-const bcrypt = require("bcrypt");
-const validation = require("../utils/validation");
-const checkUserExists = require("../utils/checkUserExists");
+import * as express from 'express';
+import bcrypt from "bcrypt";
+import validation from "../utils/validation";
+import checkUserExists from "../utils/checkUserExists";
+import { User } from "../models/user";
 
-const User = require("../models/user");
+const router = express.Router()
 
 router.post("/verifyemail", validation, checkUserExists, async (req, res) => {
-  return res.json(true);
+  return res.json('ok');
 });
 
 router.post("/register", validation, checkUserExists, async (req, res) => {
@@ -16,16 +17,16 @@ router.post("/register", validation, checkUserExists, async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const bcryptPassword = await bcrypt.hash(password1, salt);
 
-    const newUser = new User({
+    const newUser = User.build({
       name: name,
       email: email,
       password: bcryptPassword,
     });
 
     await newUser.save();
-    return res.json(true);
+    return res.json('ok');
   } catch (err) {
-    res.status(500).send("Server error");
+    res.status(500).send(err);
   }
 });
 
@@ -34,7 +35,7 @@ router.get("/", async (req, res) => {
     const users = await User.find({}, { password: 0 });
     return res.json(users);
   } catch (err) {
-    res.status(500).send("Server error");
+    res.status(500).send(err);
   }
 });
 
